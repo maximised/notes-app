@@ -4,3 +4,7 @@ This app is planned to be used as sort of an alternative to using LATEX or sympy
 The goal is to create an intuitive and efficient web app for typing up notes for STEM courses.
 
 The project is planned to be created using the C# language with the Microsoft Visual Studio IDE.
+
+This project was started by students from University College Cork.
+##Creators of project
+Maxim Chopivskyy (maximised)
