@@ -21,3 +21,5 @@ This project was started by students from University College Cork.
 Maxim Chopivskyy (maximised) 
 
 Conrad Crowley
+
+Cian McDonnell 
