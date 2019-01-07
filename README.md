@@ -6,5 +6,5 @@ The goal is to create an intuitive and efficient web app for typing up notes for
 The project is planned to be created using the C# language with the Microsoft Visual Studio IDE.
 
 This project was started by students from University College Cork.
-##Creators of project
+## Creators of project
 Maxim Chopivskyy (maximised)
