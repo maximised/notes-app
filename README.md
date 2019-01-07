@@ -7,7 +7,7 @@ The goal is to create an intuitive and efficient application for typing up lectu
 
 The project is planned to be created using C# with the Microsoft Visual Studio and the .NET framework.
 
-#Future Goals
+# Future Goals
 We hope to:
 - Implement Symbolic calculation functuality in notes, similar to the SymPy library in Python.
 - Create a website to enable students to share notes
