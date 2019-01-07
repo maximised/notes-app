@@ -18,5 +18,5 @@ This project was started by students from University College Cork.
 
 
 ## Creators of project
-Maxim Chopivskyy (maximised)
+Maxim Chopivskyy (maximised) \n
 Conrad Crowley
