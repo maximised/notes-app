@@ -17,6 +17,7 @@ namespace Notepad_prototype
         public NoteApp()
         {
             InitializeComponent();
+            this.FormClosing += Form1_FormClosing;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,30 +45,31 @@ namespace Notepad_prototype
             {
                 //Determines the text file to save to
 
-                System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(openFileDialog1.FileName);
-                //Writes the text to the file
-                SaveFile.WriteLine(richTextBox1.Text);
-                //Closes the proccess
-                alreadySavedOnce = true;
-                SaveFile.Close();
+                using (var SaveFile = new System.IO.StreamWriter(openFileDialog1.FileName))
+                {
+
+                    //Writes the text to the file
+                    SaveFile.WriteLine(richTextBox1.Text);
+                    //Closes the proccess
+                    alreadySavedOnce = true;
+                    SaveFile.Close();
+                }
             }
 
             else //if the file hasn't been opened, but has been saved, just save the file
             {
                 //Determines the text file to save to
 
-                System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName);
-                //Writes the text to the file
-                SaveFile.WriteLine(richTextBox1.Text);
-                //Closes the proccess
-                alreadySavedOnce = true;
-                SaveFile.Close();
-            }
-        }
+                using (var SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName))
+                {
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+                    //Writes the text to the file
+                    SaveFile.WriteLine(richTextBox1.Text);
+                    //Closes the proccess
+                    alreadySavedOnce = true;
+                    SaveFile.Close();
+                }
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,22 +83,40 @@ namespace Notepad_prototype
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e) //runs if "Open" is clicked in the Open Dialog Box
         {
-            System.IO.StreamReader OpenFile = new System.IO.StreamReader(openFileDialog1.FileName);
-            //Displays the text file in the textBox
-            richTextBox1.Text = OpenFile.ReadToEnd();
-            alreadyOpenedOnce = true;
-            //Closes the proccess
-            OpenFile.Close();
+            using (var OpenFile = new System.IO.StreamReader(openFileDialog1.FileName))
+            {
+
+                //Displays the text file in the textBox
+                richTextBox1.Text = OpenFile.ReadToEnd();
+                alreadyOpenedOnce = true;
+                //Closes the proccess
+                OpenFile.Close();
+            }
         }
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)//runs if "Save" is clicked in the Save As Dialog Box
         {
-            System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName);
-            //Writes the text to the file
-            SaveFile.WriteLine(richTextBox1.Text);
-            //Closes the proccess
-            alreadySavedOnce = true;
-            SaveFile.Close();
+            using (var SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName))
+            {
+                //Writes the text to the file
+                SaveFile.WriteLine(richTextBox1.Text);
+                //Closes the proccess
+                alreadySavedOnce = true;
+                SaveFile.Close();
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(!alreadySavedOnce)
+            {
+                var result = MessageBox.Show("Your work is not saved. Are you sure you want to exit?", string.Empty, MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
