@@ -22,4 +22,4 @@ Maxim Chopivskyy (maximised)
 
 Conrad Crowley
 
-Cian McDonnell (mcdc64)
+Cian McDonnell
