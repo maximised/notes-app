@@ -12,7 +12,8 @@ namespace Notepad_prototype
 {
     public partial class NoteApp : Form
     {
-        
+        Boolean alreadySavedOnce = false; //flag to check whether file was saved previously
+        Boolean alreadyOpenedOnce = false;//flag to check whether file was opened previously
         public NoteApp()
         {
             InitializeComponent();
@@ -22,12 +23,8 @@ namespace Notepad_prototype
         {
             //Shows the openFileDialog
             openFileDialog1.ShowDialog();
-            //Reads the text file
-            System.IO.StreamReader OpenFile = new System.IO.StreamReader(openFileDialog1.FileName);
-            //Displays the text file in the textBox
-            richTextBox1.Text = OpenFile.ReadToEnd();
-            //Closes the proccess
-            OpenFile.Close();
+           
+           
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,12 +34,35 @@ namespace Notepad_prototype
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Determines the text file to save to
-            System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(openFileDialog1.FileName);
-            //Writes the text to the file
-            SaveFile.WriteLine(richTextBox1.Text);
-            //Closes the proccess
-            SaveFile.Close();
+            if (alreadySavedOnce == false) //if the file hasn't already been saved, the saveFile dialog should be opened to give it a filename
+            {
+                saveFileDialog1.ShowDialog();
+            }
+
+
+            else if (alreadyOpenedOnce) //if the open dialog has been opened, the FileName in openFileDialog1 will exist (so no need to open a dialog box)
+            {
+                //Determines the text file to save to
+
+                System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(openFileDialog1.FileName);
+                //Writes the text to the file
+                SaveFile.WriteLine(richTextBox1.Text);
+                //Closes the proccess
+                alreadySavedOnce = true;
+                SaveFile.Close();
+            }
+
+            else //if the file hasn't been opened, but has been saved, just save the file
+            {
+                //Determines the text file to save to
+
+                System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName);
+                //Writes the text to the file
+                SaveFile.WriteLine(richTextBox1.Text);
+                //Closes the proccess
+                alreadySavedOnce = true;
+                SaveFile.Close();
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,21 +75,28 @@ namespace Notepad_prototype
             //Open the saveFileDialog
             saveFileDialog1.ShowDialog();
             //Determines the text file to save to
+
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e) //runs if "Open" is clicked in the Open Dialog Box
+        {
+            System.IO.StreamReader OpenFile = new System.IO.StreamReader(openFileDialog1.FileName);
+            //Displays the text file in the textBox
+            richTextBox1.Text = OpenFile.ReadToEnd();
+            alreadyOpenedOnce = true;
+            //Closes the proccess
+            OpenFile.Close();
+        }
+
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)//runs if "Save" is clicked in the Save As Dialog Box
+        {
             System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveFileDialog1.FileName);
             //Writes the text to the file
             SaveFile.WriteLine(richTextBox1.Text);
             //Closes the proccess
+            alreadySavedOnce = true;
             SaveFile.Close();
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
         }
     }
 }
