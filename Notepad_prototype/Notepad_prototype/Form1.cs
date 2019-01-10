@@ -17,7 +17,7 @@ namespace Notepad_prototype
         public NoteApp()
         {
             InitializeComponent();
-            this.FormClosing += Form1_FormClosing;
+            this.FormClosing += Form1_FormClosing;  //opens text box when closing app without saving
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -114,7 +114,7 @@ namespace Notepad_prototype
 
                 if (result == DialogResult.No)
                 {
-                    e.Cancel = true;
+                    e.Cancel = true; //Makes app not close if user selects No
                 }
             }
         }
