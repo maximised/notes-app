@@ -20,15 +20,13 @@ namespace Notepad_prototype
         public NoteApp()
         {
             InitializeComponent();
-            this.FormClosing += Form1_FormClosing; //use to ask if user wants to leave without saving
+            this.FormClosing += Form1_FormClosing;  //opens text box when closing app without saving
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Shows the openFileDialog
-            openFileDialog1.ShowDialog();
-           
-           
+            openFileDialog1.ShowDialog();  
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
