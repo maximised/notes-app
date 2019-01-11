@@ -14,6 +14,9 @@ namespace Notepad_prototype
     {
         Boolean alreadySavedOnce = false; //flag to check whether file was saved previously
         Boolean alreadyOpenedOnce = false;//flag to check whether file was opened previously
+        Stack<string> undoList = new Stack<string>();
+
+
         public NoteApp()
         {
             InitializeComponent();
@@ -23,9 +26,7 @@ namespace Notepad_prototype
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Shows the openFileDialog
-            openFileDialog1.ShowDialog();
-           
-           
+            openFileDialog1.ShowDialog();  
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -110,13 +111,35 @@ namespace Notepad_prototype
         {
             if(!alreadySavedOnce)
             {
-                var result = MessageBox.Show("Your work is not saved. Are you sure you want to exit?", string.Empty, MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("Your work is not saved. Are you sure you want to exit?", string.Empty, MessageBoxButtons.YesNo); //asks user q if they try to exit withot saving
 
                 if (result == DialogResult.No)
                 {
-                    e.Cancel = true; //Makes app not close if user selects No
+                    e.Cancel = true; //cancels the exit if user chose no
                 }
             }
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.SelectedText != string.Empty) //checks if user highlighted text
+            {
+                Clipboard.SetText(richTextBox1.SelectedText); //sets the highlighted text to be paste
+                richTextBox1.SelectedText = string.Empty; //removes highlighted text
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.SelectedText != string.Empty) //checks if user highlighted text
+            {
+                Clipboard.SetText(richTextBox1.SelectedText); //sets the highlighted text to be paste
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectedText = Clipboard.GetText(); //pastes text
         }
     }
 }
