@@ -16,6 +16,7 @@ namespace Notepad_prototype
         Boolean alreadyOpenedOnce = false;//flag to check whether file was opened previously
         Stack<string> undoList = new Stack<string>();
 
+        
 
         public NoteApp()
         {
@@ -27,9 +28,8 @@ namespace Notepad_prototype
         {
             //Shows the openFileDialog
             openFileDialog1.ShowDialog();
-           
-           
         }
+
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -111,7 +111,7 @@ namespace Notepad_prototype
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(!alreadySavedOnce)
+            if (!alreadySavedOnce)
             {
                 var result = MessageBox.Show("Your work is not saved. Are you sure you want to exit?", string.Empty, MessageBoxButtons.YesNo); //asks user q if they try to exit withot saving
 
@@ -143,5 +143,38 @@ namespace Notepad_prototype
         {
             richTextBox1.SelectedText = Clipboard.GetText(); //pastes text
         }
+
+       private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form2 = new Form2();
+            form2.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectAll();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Undo();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Redo();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+        }
+
+        private void undoClearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ClearUndo();
+        }
     }
+
+    
 }
